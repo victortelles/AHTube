@@ -3,7 +3,7 @@
 > **¿Cansado de encontrar convertidores de YT a MP3 o MP4 que te limitan su uso o te llenan de redirecciones a sitios desconocidos?**  
 > ¡Aquí tenés la solución! Ejecutá **AHTube** localmente en tu dispositivo y mantené el control total sin publicidad, sin límites y con máxima privacidad.
 
-![AHTube Banner](src/assets/AHTyler_Logo_der_Alpha.png)
+![AHTube Banner](src/assets/BannerAHTube.png)
 
 ---
 
@@ -117,7 +117,7 @@ Hacé clic en **🚀 Iniciar Extracción**. Podrás ver el progreso en tiempo re
 
 ---
 
-## ⚖️ Descargo de Responsabilidad y Términos de Uso (Legal Disclaimer)
+## ⚖️ Responsabilidad y Términos de Uso (Legal Disclaimer)
 
 > [!IMPORTANT]
 > - **Uso Estrictamente Personal y Educativo**: **AHTube** ha sido creado exclusivamente con fines educativos, de demostración técnica y de respaldo personal de contenido propio o de libre distribución (dominio público).
