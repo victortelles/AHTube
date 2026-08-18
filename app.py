@@ -9,7 +9,7 @@ from src.ui.views.about import render_about_view
 # Streamlit Page Setup
 st.set_page_config(
     page_title=APP_NAME,
-    page_icon="🎵",
+    page_icon="https://raw.githubusercontent.com/twbs/icons/main/icons/play-btn-fill.svg",
     layout="centered",
     initial_sidebar_state="expanded"
 )
@@ -21,13 +21,13 @@ def main():
     nav_option = render_sidebar()
     render_header()
     
-    if nav_option == "🏠 Inicio":
+    if nav_option == "Inicio":
         render_home_view()
-    elif nav_option == "📖 Cómo usarlo":
+    elif nav_option == "Cómo usarlo":
         render_guide_view()
-    elif nav_option == "⚖️ Normas y Términos":
+    elif nav_option == "Normas y Términos":
         render_terms_view()
-    elif nav_option == "⚙️ ¿Cómo funciona por detrás?":
+    elif nav_option == "¿Cómo funciona por detrás?":
         render_about_view()
 
 if __name__ == "__main__":

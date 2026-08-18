@@ -8,7 +8,7 @@ from src.ui.components import render_preview_card
 def render_home_view() -> None:
     """Renders the main Home view: Extractor & Downloads Gallery."""
     url_input = st.text_input(
-        "🔗 Pegá la URL del video de YouTube:",
+        "URL del video de YouTube:",
         placeholder="https://www.youtube.com/watch?v=..."
     ).strip()
 
@@ -20,17 +20,17 @@ def render_home_view() -> None:
             if meta:
                 render_preview_card(meta)
 
-            st.markdown("### ⚙️ Opciones de Extracción")
+            st.markdown("### Opciones de Extracción")
             
             mode_choice = st.radio(
                 "Seleccioná el método de extracción:",
-                ["🎵 Extraer Audio", "🎥 Extraer Video"],
+                ["Extraer Audio", "Extraer Video"],
                 horizontal=True
             )
 
             col_opt1, col_opt2 = st.columns(2)
 
-            if mode_choice == "🎵 Extraer Audio":
+            if mode_choice == "Extraer Audio":
                 mode = "audio"
                 with col_opt1:
                     audio_format = st.selectbox(
@@ -65,7 +65,7 @@ def render_home_view() -> None:
 
             st.markdown("<br>", unsafe_allow_html=True)
 
-            if st.button("🚀 Iniciar Extracción"):
+            if st.button("Iniciar Extracción"):
                 progress_bar = st.progress(0)
                 status_text = st.empty()
 
@@ -88,16 +88,16 @@ def render_home_view() -> None:
                     progress_bar.progress(100)
                     status_text.text("¡Completado exitosamente!")
                     st.balloons()
-                    st.success(f"✅ Extracción finalizada. Guardado localmente en: `{result_path}`")
+                    st.success(f"Extracción finalizada. Guardado localmente en: `{result_path}`")
                 else:
-                    st.error(f"❌ Error durante la descarga: {result_path}")
+                    st.error(f"Error durante la descarga: {result_path}")
         else:
-            st.warning("⚠️ Por favor ingresá un enlace válido de YouTube.")
+            st.warning("Por favor ingresá un enlace válido de YouTube.")
     else:
-        st.info("👋 Pegá el enlace de un video de YouTube para comenzar.")
+        st.info("Pegá el enlace de un video de YouTube para comenzar.")
 
     # ----------------------------------------------------
-    # REFINED DOWNLOADS GALLERY SECTION
+    # DOWNLOADS GALLERY SECTION
     # ----------------------------------------------------
     st.markdown("---")
     
@@ -107,13 +107,13 @@ def render_home_view() -> None:
     col_hdr_text, col_hdr_btn = st.columns([3, 1])
     
     with col_hdr_text:
-        st.markdown("### 📂 Carpeta de Descargas (`downloads/`)")
+        st.markdown("### Carpeta de Descargas (`downloads/`)")
         st.markdown(f'<div class="file-counter">Total de archivos: <strong>{file_count}</strong></div>', unsafe_allow_html=True)
     
     with col_hdr_btn:
-        if st.button("📁 Abrir Carpeta", key="open_downloads_folder_btn", help="Abrir ubicación en primer plano"):
+        if st.button("Abrir Carpeta", key="open_downloads_folder_btn", help="Abrir ubicación en primer plano"):
             open_folder_in_foreground(OUTPUT_DIR)
-            st.toast("Abriendo carpeta en primer plano...", icon="📂")
+            st.toast("Abriendo carpeta en primer plano...")
 
     if not downloaded_files:
         st.caption("No hay archivos descargados en la carpeta actualmente.")

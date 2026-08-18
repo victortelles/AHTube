@@ -4,7 +4,7 @@ from src.config import STEP1_IMG_PATH, STEP2_IMG_PATH, STEP3_IMG_PATH
 
 def render_guide_view() -> None:
     """Renders the step-by-step user guide view."""
-    st.header("📖 Guía Paso a Paso: ¿Cómo usar la aplicación?")
+    st.header("Guía Paso a Paso: ¿Cómo usar la aplicación?")
     st.write("Sigue estas sencillas indicaciones para extraer cualquier audio o video de YouTube en segundos.")
     
     st.markdown("---")
@@ -24,9 +24,9 @@ def render_guide_view() -> None:
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.subheader("Paso 3: Extracción y Descarga")
-    st.write("Hacé clic en el botón **🚀 Iniciar Extracción**. Podrás visualizar la velocidad y porcentaje en tiempo real. Al finalizar, el archivo aparecerá automáticamente en tu carpeta de descargas.")
+    st.write("Hacé clic en el botón **Iniciar Extracción**. Podrás visualizar la velocidad y porcentaje en tiempo real. Al finalizar, el archivo aparecerá automáticamente en tu carpeta de descargas.")
     if os.path.exists(STEP3_IMG_PATH):
         st.image(STEP3_IMG_PATH, width="stretch")
 
     st.markdown("---")
-    st.success("💡 **Tip**: También podés acceder a la sección *¿Cómo funciona por detrás?* en el menú lateral para conocer los aspectos técnicos de la herramienta.")
+    st.info("Tip: También podés acceder a la sección '¿Cómo funciona por detrás?' en el menú lateral para conocer los aspectos técnicos de la herramienta.")

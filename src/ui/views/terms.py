@@ -2,7 +2,7 @@ import streamlit as st
 
 def render_terms_view() -> None:
     """Renders the Terms of Use, Rules, and Legal Disclaimer view."""
-    st.header("⚖️ Normas, Alcances y Términos de Uso")
+    st.header("Normas, Alcances y Términos de Uso")
     st.write("Consulta las reglas de uso, alcances permitidos y limitaciones legales de AHTube.")
     
     st.markdown("---")
@@ -10,7 +10,7 @@ def render_terms_view() -> None:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### ✅ Lo que SÍ se puede hacer")
+        st.markdown("### Lo que SÍ se puede hacer")
         st.markdown("""
         • **Uso Ilimitado y Local**: Ejecutar la herramienta en tu equipo sin publicidad, acortadores ni límites de uso.
         • **Respaldo Personal**: Descargar audios y videos para uso personal, educativo o de dominio público.
@@ -19,7 +19,7 @@ def render_terms_view() -> None:
         """)
 
     with col2:
-        st.markdown("### ❌ Lo que NO se puede hacer")
+        st.markdown("### Lo que NO se puede hacer")
         st.markdown("""
         • **Contenido Protegido por DRM**: No es posible descargar películas pagas, directos protegidos o YouTube Primetime.
         • **Bypass Geográfico Extremas**: No evade bloqueos regionales estrictos impuestos por la plataforma sin una VPN local.
@@ -30,7 +30,7 @@ def render_terms_view() -> None:
     
     # Legal Disclaimer Card
     st.markdown('<div class="preview-card">', unsafe_allow_html=True)
-    st.markdown("### 🛡️ Descargo de Responsabilidad Legal")
+    st.markdown("### Descargo de Responsabilidad Legal")
     st.warning("""
     **Aviso Importante para el Usuario**:
     1. **Uso Estrictamente Personal**: AHTube ha sido desarrollado como una herramienta técnica de investigación y uso personal.
