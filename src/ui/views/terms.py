@@ -29,7 +29,6 @@ def render_terms_view() -> None:
     st.markdown("---")
     
     # Legal Disclaimer Card
-    st.markdown('<div class="preview-card">', unsafe_allow_html=True)
     st.markdown("### Descargo de Responsabilidad Legal")
     st.warning("""
     **Aviso Importante para el Usuario**:
