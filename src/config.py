@@ -6,7 +6,7 @@ APP_SUBTITLE = "Extractor profesional de Audio (MP3) y Video (MP4) desde YouTube
 OUTPUT_DIR = "downloads"
 
 # Asset Paths
-LOGO_ALPHA_PATH = os.path.join("src", "assets", "AHTyler_Logo_der_Alpha.png")
+LOGO_ALPHA_PATH = os.path.join("src", "assets", "AHTyler_Logo_der.PNG")
 STEP1_IMG_PATH = os.path.join("src", "assets", "step_paste_link.jpg")
 STEP2_IMG_PATH = os.path.join("src", "assets", "step_select_format.jpg")
 STEP3_IMG_PATH = os.path.join("src", "assets", "step_download.jpg")

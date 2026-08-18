@@ -15,7 +15,7 @@ def render_header() -> None:
     st.markdown("<br>", unsafe_allow_html=True)
 
 def render_sidebar() -> str:
-    """Renders the sidebar navigation and branding."""
+    """Renders the simplified sidebar navigation and branding."""
     with st.sidebar:
         if os.path.exists(LOGO_ALPHA_PATH):
             st.image(LOGO_ALPHA_PATH, use_container_width=True)
@@ -24,18 +24,17 @@ def render_sidebar() -> str:
         
         nav_option = st.radio(
             "Navegación / Secciones",
-            ["🏠 Inicio", "📖 Cómo usarlo", "⚙️ ¿Cómo funciona por detrás?"],
+            [
+                "🏠 Inicio",
+                "📖 Cómo usarlo",
+                "⚖️ Normas y Términos",
+                "⚙️ ¿Cómo funciona por detrás?"
+            ],
             index=0
         )
         
         st.markdown("---")
-        st.markdown("### 📌 Características")
-        st.markdown("• Extracción ultra-rápida de audio")
-        st.markdown("• Formatos: MP3, WAV, M4A y Video MP4")
-        st.markdown("• Calidad bitrate hasta 320 kbps")
-        st.markdown("• Galería integrada de descargas")
-        st.markdown("---")
-        st.caption("AHTube © 2026")
+        st.caption("AHTube © 2026 | Extractor Local")
         
         return nav_option
 
