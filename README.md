@@ -23,7 +23,7 @@
 
 ---
 
-## ⚙️ Requisitos Mínimos para Desarrolladores
+## ⚙ Requisitos Mínimos para Desarrolladores
 
 Antes de comenzar, asegurate de contar con:
 
@@ -111,7 +111,15 @@ Hacé clic en **🚀 Iniciar Extracción**. Podrás ver el progreso en tiempo re
 - **Reproducción Integrada**: Escuchar el audio o mirar el video directamente dentro de la interfaz web.
 - **Integración con el Sistema**: Botón para abrir la carpeta `downloads/` directamente en **primer plano** en el Explorador de archivos de Windows.
 
-### ❌ Lo que NO se puede hacer (Limitaciones)
+### ❌ Lo que NO se puede hacer (Limitaciones Técnicas)
 - **Contenido con Protección DRM**: No es posible descargar películas pagas, transmisiones en vivo protegidas o contenido privado de YouTube Primetime.
 - **Bypass de Restricciones Geográficas Extremas**: Si un video está bloqueado en tu región por YouTube, la aplicación requerirá el uso de una VPN local en tu equipo.
-- **Redistribución Comercial**: Este software está diseñado exclusivamente para uso personal, educativo y de respaldo. No fomenta la infracción de derechos de autor.
+
+---
+
+## ⚖️ Descargo de Responsabilidad y Términos de Uso (Legal Disclaimer)
+
+> [!IMPORTANT]
+> - **Uso Estrictamente Personal y Educativo**: **AHTube** ha sido creado exclusivamente con fines educativos, de demostración técnica y de respaldo personal de contenido propio o de libre distribución (dominio público).
+> - **Exención Total de Responsabilidad del Autor**: El autor/desarrollador de este proyecto **NO se hace responsable** del uso indebido, malintencionado o ilegal que otros usuarios puedan darle a este software, ni de posibles violaciones a derechos de autor realizadas por terceros.
+> - **Responsabilidad Exclusiva del Usuario**: Es responsabilidad única y exclusiva del usuario final asegurarse de que el uso de esta herramienta cumpla con los Términos de Servicio de YouTube y las leyes de propiedad intelectual vigentes en su respectivo país o jurisdicción.

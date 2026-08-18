@@ -1,7 +1,7 @@
 import streamlit as st
 
 def render_about_view() -> None:
-    """Renders the plain-language technical architecture explanation view."""
+    """Renders the plain-language technical architecture explanation and legal disclaimer view."""
     st.header("⚙️ ¿Cómo funciona AHTube por detrás?")
     st.write("Te explicamos de manera sencilla la arquitectura y el proceso técnico que ocurre en segundo plano cada vez que realizás una extracción.")
     
@@ -35,4 +35,14 @@ def render_about_view() -> None:
         """)
         
     st.markdown("<br>", unsafe_allow_html=True)
-    st.info("🔒 **Seguridad y Privacidad**: Toda la conversión se procesa localmente en tu sistema sin almacenar copias en servidores de terceros ni enviar información personal.")
+    
+    # ----------------------------------------------------
+    # LEGAL DISCLAIMER CARD
+    # ----------------------------------------------------
+    st.markdown("### ⚖️ Descargo de Responsabilidad y Términos de Uso")
+    st.warning("""
+    **Aviso Legal Importante**:
+    - **Uso Estrictamente Personal y Educativo**: AHTube ha sido desarrollado exclusivamente con fines educativos, de investigación técnica y para el respaldo de contenido propio o de dominio público.
+    - **Exención de Responsabilidad del Autor**: El desarrollador/autor de este software **NO se hace responsable** del uso indebido, descargas no autorizadas, infracciones de propiedad intelectual o cualquier actividad ilegal que terceros puedan realizar utilizando esta herramienta.
+    - **Responsabilidad del Usuario**: Es responsabilidad única del usuario final verificar y cumplir con los Términos de Servicio de YouTube y la legislación aplicable en su país antes de descargar cualquier material.
+    """)
