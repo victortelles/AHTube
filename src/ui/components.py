@@ -18,7 +18,7 @@ def render_sidebar() -> str:
     """Renders the simplified sidebar navigation and branding."""
     with st.sidebar:
         if os.path.exists(LOGO_ALPHA_PATH):
-            st.image(LOGO_ALPHA_PATH, use_container_width=True)
+            st.image(LOGO_ALPHA_PATH, width="stretch")
         st.title(APP_NAME)
         st.markdown("---")
         
@@ -45,7 +45,7 @@ def render_preview_card(meta: dict) -> None:
         col_thumb, col_info = st.columns([1, 2])
         with col_thumb:
             if meta.get('thumbnail'):
-                st.image(meta['thumbnail'], use_container_width=True)
+                st.image(meta['thumbnail'], width="stretch")
         with col_info:
             st.subheader(meta.get('title'))
             st.write(f"👤 **Canal:** {meta.get('uploader')}")
