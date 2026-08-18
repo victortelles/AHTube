@@ -26,7 +26,7 @@ def render_terms_view() -> None:
         • **Redistribución Comercial**: No se permite utilizar esta herramienta para la redistribución comercial no autorizada de material con derechos de autor.
         """)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("---")
     
     # Legal Disclaimer Card
     st.markdown('<div class="preview-card">', unsafe_allow_html=True)
@@ -37,4 +37,4 @@ def render_terms_view() -> None:
     2. **Exención Total de Responsabilidad del Creador**: El desarrollador/autor de este proyecto **NO se hace responsable** del uso indebido, descargas no autorizadas ni violaciones a derechos de autor realizadas por otros usuarios.
     3. **Cumplimiento Legal**: Es responsabilidad única y exclusiva del usuario final asegurarse de que el uso de este software cumpla con los Términos de Servicio de YouTube y la legislación sobre propiedad intelectual de su país.
     """)
-    st.markdown('</div>', unsafe_allow_html=True)
+
