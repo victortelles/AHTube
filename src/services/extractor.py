@@ -30,6 +30,11 @@ def fetch_video_metadata(url: str) -> dict | None:
         'quiet': True,
         'no_warnings': True,
         'skip_download': True,
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'web', 'mweb']
+            }
+        },
     }
     ffmpeg_loc = resolve_ffmpeg_path()
     if ffmpeg_loc:
@@ -78,6 +83,14 @@ def extract_media(
         'progress_hooks': [internal_hook] if progress_callback else [],
         'quiet': True,
         'no_warnings': True,
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'web', 'mweb']
+            }
+        },
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        }
     }
 
     if ffmpeg_location:
