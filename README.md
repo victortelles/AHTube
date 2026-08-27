@@ -9,16 +9,20 @@
 
 ## 📌 Descripción del Proyecto
 
-**AHTube** es una solución profesional desarrollada en Python que combina una **Interfaz Web (Streamlit)** moderna y una **Consola interactiva (CLI)** de alta velocidad. Permite analizar enlaces de YouTube, mostrar una vista previa en tiempo real con metadatos del video (título, autor, duración y miniatura) y extraer el contenido en formatos de **Audio (MP3, WAV, M4A)** o **Video (MP4)** con calidad configurable.
+**AHTube** es una suite profesional desarrollada en Python que combina herramientas de procesamiento multimedia y conversión con una **Interfaz Web (Streamlit)** moderna y una **Consola interactiva (CLI)** de alta velocidad:
+
+1. **🎵🎥 Extractor de Audio y Video (YouTube)**: Permite analizar enlaces de YouTube, mostrar una vista previa en tiempo real con metadatos del video (título, autor, duración y miniatura) y extraer el contenido en formatos de **Audio (MP3, WAV, M4A)** o **Video (MP4)** con calidad configurable.
+2. **🖼️ Conversor Profesional de Imágenes**: Un módulo independiente de procesamiento y conversión por lotes de imágenes (.webp, .png, .jpg, .ico, .bmp, .tiff, .pdf) con detección automática de formatos y manejo inteligente de transparencias. *(Ver [Guía Completa del Conversor de Imágenes](docs/IMAGE_CONVERTER.md))*.
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
 - **Lenguaje**: [Python 3.10+](https://www.python.org/)
-- **Interfaz Web**: [Streamlit](https://streamlit.io/)
+- **Interfaz Web**: [Streamlit](https://streamlit.io/) + [streamlit-option-menu](https://github.com/victoryhb/streamlit-option-menu)
 - **Motor de Extracción**: [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 - **Procesamiento de Audio y Video**: [FFmpeg](https://ffmpeg.org/) / `static-ffmpeg`
+- **Procesamiento y Conversión de Imágenes**: [Pillow (PIL)](https://python-pillow.org/)
 - **Gestión de Entorno**: Python `venv`
 
 ---
@@ -105,11 +109,12 @@ Hacé clic en **🚀 Iniciar Extracción**. Podrás ver el progreso en tiempo re
 ## 📋 Alcances y Limitaciones
 
 ### ✅ Lo que SÍ se puede hacer
-- **Uso Ilimitado y Local**: Sin límites de descargas diarias, sin acortadores y sin publicidad molesta.
-- **Calidad de Audio Configurable**: Extracción en MP3 a **320 kbps** (Alta fidelidad), **192 kbps** (Estándar) o **128 kbps** (Ligera), además de formatos sin pérdida como WAV.
-- **Resolución de Video Adaptable**: Conversión a MP4 manteniendo la resolución original del video.
-- **Reproducción Integrada**: Escuchar el audio o mirar el video directamente dentro de la interfaz web.
-- **Integración con el Sistema**: Botón para abrir la carpeta `downloads/` directamente en **primer plano** en el Explorador de archivos de Windows.
+- **Uso Ilimitado y Local**: Sin límites de descargas ni conversiones, sin acortadores y sin publicidad molesta.
+- **Extracción de YouTube**: Extracción en MP3 hasta **320 kbps** (Alta fidelidad), WAV, M4A o video MP4 en resolución máxima.
+- **Conversión de Imágenes por Lotes**: Conversión individual y de carpetas completas entre formatos `.png`, `.jpg`, `.webp`, `.ico`, `.bmp`, `.tiff`, `.pdf`.
+- **Manejo Inteligente de Transparencias**: Composición limpia de canal alfa para formatos que no admiten transparencia (evitando fondos negros).
+- **Descarga Directa en ZIP y Explorador Local**: Descarga de lotes procesados en ZIP y apertura directa de las carpetas `downloads/` o `converted_images/` en primer plano.
+- **Reproducción Integrada**: Escuchar audio y ver video descargado o previsualizar imágenes procesadas en la interfaz web.
 
 ### ❌ Lo que NO se puede hacer (Limitaciones Técnicas)
 - **Contenido con Protección DRM**: No es posible descargar películas pagas, transmisiones en vivo protegidas o contenido privado de YouTube Primetime.

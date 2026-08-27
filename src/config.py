@@ -4,6 +4,11 @@ import os
 APP_NAME = "AHTube"
 APP_SUBTITLE = "Extractor profesional de Audio (MP3) y Video (MP4) desde YouTube"
 OUTPUT_DIR = "downloads"
+IMAGE_OUTPUT_DIR = "converted_images"
+
+# Supported Image Formats
+SUPPORTED_IMAGE_INPUT_EXTS = (".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tiff", ".tif", ".ico", ".gif")
+SUPPORTED_IMAGE_OUTPUT_FORMATS = ["PNG", "JPEG", "WEBP", "BMP", "TIFF", "ICO", "PDF"]
 
 # Asset Paths
 LOGO_ALPHA_PATH = os.path.join("src", "assets", "AHTyler_Logo_der.PNG")
@@ -96,6 +101,19 @@ CUSTOM_CSS = """
         background-color: rgba(168, 85, 247, 0.15);
         color: #C084FC;
         border: 1px solid rgba(168, 85, 247, 0.3);
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 6px;
+    }
+
+    .badge-image {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: #34D399;
+        border: 1px solid rgba(16, 185, 129, 0.3);
         padding: 3px 10px;
         border-radius: 20px;
         font-size: 0.75rem;

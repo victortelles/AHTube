@@ -25,8 +25,8 @@ def render_sidebar() -> str:
         
         selected_option = option_menu(
             menu_title="Navegación",
-            options=["Inicio", "Cómo usarlo", "Normas y Términos", "¿Cómo funciona por detrás?"],
-            icons=["house", "book-half", "shield-check", "gear"],
+            options=["Inicio", "Conversor de Imágenes", "Cómo usarlo", "Normas y Términos", "¿Cómo funciona por detrás?"],
+            icons=["house", "images", "book-half", "shield-check", "gear"],
             default_index=0,
             styles={
                 "container": {"padding": "0!important", "background-color": "transparent"},
