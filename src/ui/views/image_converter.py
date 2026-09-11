@@ -21,7 +21,7 @@ from src.services.explorer import open_folder_in_foreground
 def render_image_converter_view() -> None:
     """Renders the independent Image Converter view."""
     st.header("Conversor Profesional de Imágenes")
-    st.write("Convertí imágenes individuales o carpetas completas entre múltiples formatos (.jfif, .png, .jpg, .webp, .ico, .pdf y más) sin límites y de forma 100% local.")
+    st.write("Convertí imágenes individuales o carpetas completas entre múltiples formatos (.heic, .jfif, .png, .jpg, .webp, .ico, .pdf y más) sin límites y de forma 100% local.")
 
     st.markdown("---")
 
@@ -39,7 +39,7 @@ def render_image_converter_view() -> None:
             "Seleccioná una o varias imágenes:",
             type=[ext.replace(".", "") for ext in SUPPORTED_IMAGE_INPUT_EXTS],
             accept_multiple_files=True,
-            help="Podés arrastrar o seleccionar archivos JFIF, PNG, JPG, WEBP, ICO, BMP, TIFF, GIF, etc."
+            help="Podés arrastrar o seleccionar archivos HEIC, JFIF, PNG, JPG, WEBP, ICO, BMP, TIFF, GIF, etc."
         )
 
         if uploaded_files:

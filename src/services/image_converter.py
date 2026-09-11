@@ -4,6 +4,13 @@ import zipfile
 from typing import Any, BinaryIO, Callable
 from PIL import Image, ImageOps
 
+# Automatically register HEIC / HEIF opener for Pillow
+try:
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+except Exception:
+    pass
+
 from src.config import SUPPORTED_IMAGE_INPUT_EXTS
 
 # Pillow target format mapping

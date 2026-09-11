@@ -11,7 +11,7 @@
 
 **AHTube** es una solución profesional desarrollada en Python que combina una **Interfaz Web (Streamlit)** moderna y una **Consola interactiva (CLI)** de alta velocidad. Permite:
 - **Descarga Multimedia**: Analizar enlaces de YouTube, mostrar vista previa en tiempo real y extraer contenido en **Audio (MP3, WAV, M4A)** o **Video (MP4)** con calidad configurable.
-- **Conversor de Imágenes**: Convertir imágenes individuales o por lotes entre formatos populares (**JFIF**, PNG, JPG/JPEG, WEBP, ICO, BMP, TIFF, PDF) 100% en local y sin límites.
+- **Conversor de Imágenes**: Convertir imágenes individuales o por lotes entre formatos populares (**HEIC**, **JFIF**, PNG, JPG/JPEG, WEBP, ICO, BMP, TIFF, PDF) 100% en local y sin límites.
 2. **🖼️ Conversor Profesional de Imágenes**: Un módulo independiente de procesamiento y conversión por lotes de imágenes (.webp, .png, .jpg, .ico, .bmp, .tiff, .pdf) con detección automática de formatos y manejo inteligente de transparencias. *(Ver [Guía Completa del Conversor de Imágenes](docs/IMAGE_CONVERTER.md))*.
 
 ---
