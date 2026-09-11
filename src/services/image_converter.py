@@ -11,6 +11,7 @@ FORMAT_MAPPING = {
     "PNG": "PNG",
     "JPEG": "JPEG",
     "JPG": "JPEG",
+    "JFIF": "JPEG",
     "WEBP": "WEBP",
     "BMP": "BMP",
     "TIFF": "TIFF",

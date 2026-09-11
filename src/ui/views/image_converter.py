@@ -20,26 +20,26 @@ from src.services.explorer import open_folder_in_foreground
 
 def render_image_converter_view() -> None:
     """Renders the independent Image Converter view."""
-    st.header("🖼️ Conversor Profesional de Imágenes")
-    st.write("Convertí imágenes individuales o carpetas completas entre múltiples formatos (.webp, .png, .jpg, .ico, .pdf y más) sin límites y de forma 100% local.")
+    st.header("Conversor Profesional de Imágenes")
+    st.write("Convertí imágenes individuales o carpetas completas entre múltiples formatos (.jfif, .png, .jpg, .webp, .ico, .pdf y más) sin límites y de forma 100% local.")
 
     st.markdown("---")
 
     # Mode Selector
     input_mode = st.radio(
         "Modo de selección de imágenes:",
-        ["📁 Subir Archivos Directamente", "📂 Escanear Carpeta Local"],
+        ["Subir Archivos Directamente", "Escanear Carpeta Local"],
         horizontal=True
     )
 
     items_to_convert: list[dict] = []
 
-    if input_mode == "📁 Subir Archivos Directamente":
+    if input_mode == "Subir Archivos Directamente":
         uploaded_files = st.file_uploader(
             "Seleccioná una o varias imágenes:",
             type=[ext.replace(".", "") for ext in SUPPORTED_IMAGE_INPUT_EXTS],
             accept_multiple_files=True,
-            help="Podés arrastrar o seleccionar archivos PNG, JPG, WEBP, ICO, BMP, TIFF, GIF, etc."
+            help="Podés arrastrar o seleccionar archivos JFIF, PNG, JPG, WEBP, ICO, BMP, TIFF, GIF, etc."
         )
 
         if uploaded_files:
@@ -65,7 +65,7 @@ def render_image_converter_view() -> None:
         with col_scan:
             st.write("")
             st.write("")
-            scan_clicked = st.button("🔍 Escanear", use_container_width=True)
+            scan_clicked = st.button("Escanear")
 
         if folder_path:
             if os.path.exists(folder_path) and os.path.isdir(folder_path):
@@ -91,7 +91,7 @@ def render_image_converter_view() -> None:
     # ----------------------------------------------------
     if items_to_convert:
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("### 📋 Imágenes Seleccionadas para Conversión")
+        st.markdown("### Imágenes Seleccionadas para Conversión")
 
         # Summary Metrics
         col_m1, col_m2, col_m3 = st.columns(3)
@@ -106,7 +106,7 @@ def render_image_converter_view() -> None:
             st.metric("Formatos Detectados", ", ".join(formats_found))
 
         # Collapsible detailed table
-        with st.expander("👁️ Ver lista detallada de archivos detectados", expanded=False):
+        with st.expander("Ver lista detallada de archivos detectados", expanded=False):
             preview_data = [
                 {
                     "Archivo": item["name"],
@@ -117,10 +117,10 @@ def render_image_converter_view() -> None:
                 }
                 for item in items_to_convert
             ]
-            st.dataframe(preview_data, use_container_width=True)
+            st.dataframe(preview_data)
 
         st.markdown("---")
-        st.markdown("### ⚙️ Parámetros de Salida")
+        st.markdown("### Parámetros de Salida")
 
         col_opt1, col_opt2 = st.columns(2)
 
@@ -129,7 +129,7 @@ def render_image_converter_view() -> None:
                 "Formato de Destino deseado:",
                 SUPPORTED_IMAGE_OUTPUT_FORMATS,
                 index=0,
-                format_func=lambda x: f".{x.upper()} ({'Imágenes con o sin transparencia' if x in ('PNG', 'WEBP') else 'Fotografía estándar' if x == 'JPEG' else 'Documento' if x == 'PDF' else 'Icono de aplicación' if x == 'ICO' else 'Formato estándar'})"
+                format_func=lambda x: f".{x.upper()} ({'Imágenes con o sin transparencia' if x in ('PNG', 'WEBP') else 'Fotografía estándar JPG/JPEG' if x == 'JPEG' else 'Documento' if x == 'PDF' else 'Icono de aplicación' if x == 'ICO' else 'Formato estándar'})"
             )
 
         with col_opt2:
@@ -151,7 +151,7 @@ def render_image_converter_view() -> None:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        if st.button("🚀 Iniciar Conversión de Imágenes", use_container_width=True):
+        if st.button("Iniciar Conversión de Imágenes"):
             progress_bar = st.progress(0)
             status_text = st.empty()
 
@@ -171,7 +171,7 @@ def render_image_converter_view() -> None:
             status_text.text("¡Conversión completada con éxito!")
             st.balloons()
 
-            st.success(f"✔ **{result['successful_count']}** de **{result['total']}** imágenes convertidas exitosamente a **.{target_format.lower()}**.")
+            st.success(f"**{result['successful_count']}** de **{result['total']}** imágenes convertidas exitosamente a **.{target_format.lower()}**.")
 
             if result["failed_files"]:
                 st.warning(f"Ocurrieron errores en {len(result['failed_files'])} archivos:")
@@ -182,11 +182,10 @@ def render_image_converter_view() -> None:
             if result["successful_files"]:
                 zip_bytes = create_zip_archive(result["successful_files"])
                 st.download_button(
-                    label="📥 Descargar lote convertido en archivo .ZIP",
+                    label="Descargar lote convertido en archivo .ZIP",
                     data=zip_bytes,
                     file_name=f"imagenes_convertidas_{target_format.lower()}.zip",
-                    mime="application/zip",
-                    use_container_width=True
+                    mime="application/zip"
                 )
 
     # ----------------------------------------------------
@@ -216,13 +215,13 @@ def render_image_converter_view() -> None:
             with cols[idx % 4]:
                 with st.container():
                     st.markdown('<span class="badge-image">IMAGEN</span>', unsafe_allow_html=True)
-                    if item["ext"] in (".png", ".jpg", ".jpeg", ".webp", ".bmp", ".ico"):
+                    if item["ext"] in (".png", ".jpg", ".jpeg", ".jfif", ".webp", ".bmp", ".ico"):
                         try:
-                            st.image(item["path"], use_container_width=True)
+                            st.image(item["path"], width="stretch")
                         except Exception:
-                            st.write(f"📄 {item['name']}")
+                            st.write(f"{item['name']}")
                     else:
-                        st.write(f"📄 {item['name']}")
+                        st.write(f"{item['name']}")
                     st.markdown(f'<div class="file-title">{item["name"]}</div>', unsafe_allow_html=True)
                     st.markdown(f'<div class="file-meta">{item["size_kb"]} KB | {item["ext"].upper()}</div>', unsafe_allow_html=True)
                     st.markdown("<br>", unsafe_allow_html=True)

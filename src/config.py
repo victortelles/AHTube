@@ -7,7 +7,7 @@ OUTPUT_DIR = "downloads"
 IMAGE_OUTPUT_DIR = "converted_images"
 
 # Supported Image Formats
-SUPPORTED_IMAGE_INPUT_EXTS = (".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tiff", ".tif", ".ico", ".gif")
+SUPPORTED_IMAGE_INPUT_EXTS = (".png", ".jpg", ".jpeg", ".jfif", ".webp", ".bmp", ".tiff", ".tif", ".ico", ".gif")
 SUPPORTED_IMAGE_OUTPUT_FORMATS = ["PNG", "JPEG", "WEBP", "BMP", "TIFF", "ICO", "PDF"]
 
 # Asset Paths
