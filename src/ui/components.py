@@ -1,69 +1,133 @@
 import os
+import html
 import streamlit as st
 from streamlit_option_menu import option_menu
 from src.config import APP_NAME, APP_SUBTITLE, LOGO_ALPHA_PATH
+from src.ui.primitives import get_badge_html
 
 def render_header() -> None:
-    """Renders the top branding header banner."""
-    col_logo, col_title = st.columns([1, 4])
+    """Renders the top branding header banner with Sky / Slate Studio aesthetic."""
+    col_logo, col_title = st.columns([1, 5])
     with col_logo:
         if os.path.exists(LOGO_ALPHA_PATH):
-            st.image(LOGO_ALPHA_PATH, width=100)
+            st.image(LOGO_ALPHA_PATH, width=90)
     with col_title:
-        st.markdown(f'<div class="main-title">{APP_NAME}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="sub-title">{APP_SUBTITLE}</div>', unsafe_allow_html=True)
+        title_html = f"""
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.2rem;">
+            <span style="font-size:2rem;font-weight:800;color:var(--foreground);letter-spacing:-0.03em;">{APP_NAME}</span>
+            <span class="dad-badge dad-badge-audio" style="font-size:0.7rem;">STUDIO EDITION</span>
+        </div>
+        <div style="color:var(--muted-foreground);font-size:0.92rem;font-weight:400;">{APP_SUBTITLE}</div>
+        """
+        st.markdown(title_html, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 1.25rem;'></div>", unsafe_allow_html=True)
 
 def render_sidebar() -> str:
-    """Renders sidebar navigation using streamlit-option-menu with Bootstrap icons."""
+    """Renders sidebar navigation using streamlit-option-menu with Sky/Slate Studio theme."""
     with st.sidebar:
         if os.path.exists(LOGO_ALPHA_PATH):
             st.image(LOGO_ALPHA_PATH, width="stretch")
-        st.title(APP_NAME)
+        
+        st.markdown(
+            f'<div style="font-size:1.4rem;font-weight:700;color:var(--foreground);margin-top:0.5rem;">{APP_NAME}</div>',
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            '<div style="font-size:0.8rem;color:var(--muted-foreground);margin-bottom:0.75rem;">Digital Audio & Video Station</div>',
+            unsafe_allow_html=True
+        )
         st.markdown("---")
         
         selected_option = option_menu(
             menu_title="Navegación",
-            options=["Inicio", "Conversor de Imágenes", "Cómo usarlo", "Normas y Términos", "¿Cómo funciona por detrás?"],
+            options=[
+                "Inicio",
+                "Conversor de Imágenes",
+                "Cómo usarlo",
+                "Normas y Términos",
+                "¿Cómo funciona por detrás?"
+            ],
             icons=["house", "images", "book-half", "shield-check", "gear"],
             default_index=0,
             styles={
                 "container": {"padding": "0!important", "background-color": "transparent"},
-                "icon": {"color": "#60A5FA", "font-size": "1rem"},
+                "icon": {"color": "#38bdf8", "font-size": "1rem"},
                 "nav-link": {
-                    "font-size": "0.95rem",
+                    "font-size": "0.9rem",
                     "text-align": "left",
                     "margin": "4px 0",
-                    "color": "#94A3B8",
-                    "border-radius": "8px"
+                    "color": "#94a3b8",
+                    "border-radius": "8px",
+                    "padding": "7px 12px",
                 },
                 "nav-link-selected": {
-                    "background-color": "#1E293B",
-                    "color": "#60A5FA",
+                    "background-color": "#1e293b",
+                    "color": "#38bdf8",
                     "font-weight": "600",
-                    "border-left": "4px solid #3B82F6"
+                    "border-left": "4px solid #38bdf8",
                 },
             }
         )
         
         st.markdown("---")
-        st.caption("AHTube © 2026 | Extractor Local")
+        
+        # System status badge in sidebar footer
+        st.markdown(
+            """
+            <div style="background:var(--secondary);border:1px solid var(--border);border-radius:var(--radius);padding:0.65rem 0.85rem;margin-bottom:0.75rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem;">
+                    <span style="font-size:0.75rem;color:var(--muted-foreground);font-weight:600;">ESTADO MOTOR</span>
+                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;"></span>
+                </div>
+                <div style="font-size:0.8rem;color:var(--foreground);font-family:var(--font-mono);font-variant-numeric:tabular-nums;">
+                    FFmpeg & yt-dlp OK
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        st.caption("AHTube Studio © 2026 | Procesamiento Local")
         
         return selected_option
 
 def render_preview_card(meta: dict) -> None:
-    """Renders video metadata preview card."""
-    with st.container():
-        st.markdown('<div class="preview-card">', unsafe_allow_html=True)
-        col_thumb, col_info = st.columns([1, 2])
-        with col_thumb:
-            if meta.get('thumbnail'):
-                st.image(meta['thumbnail'], width="stretch")
-        with col_info:
-            st.subheader(meta.get('title'))
-            st.write(f"**Canal:** {meta.get('uploader')}")
-            dur_min = meta.get('duration', 0) // 60
-            dur_sec = meta.get('duration', 0) % 60
-            st.write(f"**Duración:** {dur_min}m {dur_sec}s")
-        st.markdown('</div>', unsafe_allow_html=True)
+    """Renders video metadata preview card with DAW audio-workstation aesthetic."""
+    title = meta.get('title', 'Sin título')
+    uploader = meta.get('uploader', 'Desconocido')
+    duration = meta.get('duration', 0)
+    view_count = meta.get('view_count', 0)
+    thumbnail = meta.get('thumbnail', '')
+    
+    dur_min = duration // 60
+    dur_sec = duration % 60
+    duration_str = f"{dur_min:02d}:{dur_sec:02d}"
+    
+    views_str = f"{view_count:,}".replace(",", ".") if view_count else "N/A"
+    
+    badge_dur = get_badge_html(f"⏱ {duration_str}", variant="default")
+    badge_views = get_badge_html(f"👁 {views_str} vistas", variant="default")
+    
+    card_html = f"""
+    <div class="preview-card">
+      <div style="display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;">
+        <div style="flex:1;min-width:240px;max-width:320px;">
+          <img src="{thumbnail}" style="width:100%;border-radius:calc(var(--radius) - 0.2rem);border:1px solid var(--border);object-fit:cover;" />
+        </div>
+        <div style="flex:2;min-width:260px;">
+          <div style="margin-bottom:0.5rem;display:flex;gap:0.4rem;flex-wrap:wrap;">
+            {badge_dur}
+            {badge_views}
+          </div>
+          <div style="font-size:1.15rem;font-weight:700;color:var(--foreground);margin-bottom:0.35rem;line-height:1.35;">
+            {html.escape(title)}
+          </div>
+          <div style="font-size:0.88rem;color:var(--muted-foreground);display:flex;align-items:center;gap:0.35rem;">
+            <span class="material-symbols-rounded" style="font-size:1rem;color:var(--primary);">account_circle</span>
+            <span>{html.escape(uploader)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    """
+    st.markdown(card_html, unsafe_allow_html=True)

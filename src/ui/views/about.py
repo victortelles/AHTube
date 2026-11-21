@@ -1,45 +1,97 @@
 import streamlit as st
+from src.ui.primitives import render_micro_card, render_amber_callout
 
 def render_about_view() -> None:
     """Renders the plain-language technical architecture explanation and legal disclaimer view."""
-    st.header("¿Cómo funciona AHTube por detrás?")
-    st.write("Te explicamos de manera sencilla la arquitectura y el proceso técnico que ocurre en segundo plano cada vez que realizás una extracción.")
-    
-    st.markdown("---")
-    
+    render_micro_card(
+        title="Arquitectura y Flujo del Motor",
+        subtitle="Mapeo técnico de las etapas de inspección, separación de flujos DASH, decodificación FFmpeg y persistencia local",
+        badge_text="DAW PIPELINE",
+        badge_variant="audio",
+        icon="memory"
+    )
+
     col_f1, col_f2 = st.columns(2)
     
     with col_f1:
-        st.markdown("""
-        ### 1. Inspección e Información (API / Meta-Data)
-        Cuando pegás la URL, el backend utiliza **`yt-dlp`** para conectarse con YouTube y consultar los metadatos del video sin descargar el archivo entero. 
-        Esto nos permite obtener el título, duración, miniatura y los flujos (streams) de audio/video disponibles casi al instante.
-        """)
+        st.markdown(
+            """
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
+                <div style="font-size:1.02rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span class="material-symbols-rounded">search</span>
+                    1. Inspección e Ingesta de Metadatos
+                </div>
+                <div style="font-size:0.88rem;color:var(--foreground);line-height:1.6;">
+                    Al ingresar la URL del video, el backend invoca el motor <code>yt-dlp</code> para consultar
+                    las tablas de flujos multimedia directamente desde la API interna sin transferir el archivo completo.
+                    Esto reporta de inmediato el título, miniatura de alta resolución, duración y formatos disponibles.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-        st.markdown("""
-        ### 3. Procesamiento y Conversión con FFmpeg
-        Una vez obtenido el flujo directo, entra en acción **FFmpeg** (un potente motor multimedia industrial).
-        FFmpeg decodifica el flujo comprimido y lo recodifica en el formato solicitado (como MP3 a 320 kbps o 192 kbps), optimizando la compresión sin degradar la fidelidad sonora.
-        """)
+        st.markdown(
+            """
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
+                <div style="font-size:1.02rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span class="material-symbols-rounded">tune</span>
+                    3. Decodificación y Recodificación FFmpeg
+                </div>
+                <div style="font-size:0.88rem;color:var(--foreground);line-height:1.6;">
+                    El flujo binario es procesado a través de <code>FFmpeg</code>. El motor decodifica las muestras
+                    de audio y las recodifica con parámetros de calidad seleccionados (como MP3 a 320 kbps o WAV PCM lineal a 44.1/48 kHz),
+                    asegurando rango dinámico y preservación acústica para monitoreo o producción en DAW.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     with col_f2:
-        st.markdown("""
-        ### 2. Separación de Flujos de Audio y Video
-        YouTube almacena por separado la pista de video y la pista de audio (tecnología *DASH*).
-        Si solicitás **Audio**, nuestra herramienta descarga únicamente la pista sonora nativa (Opus o AAC), evitando descargar gigabytes de video innecesarios para máxima velocidad.
-        """)
+        st.markdown(
+            """
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
+                <div style="font-size:1.02rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span class="material-symbols-rounded">call_split</span>
+                    2. Aislamiento de Flujos DASH
+                </div>
+                <div style="font-size:0.88rem;color:var(--foreground);line-height:1.6;">
+                    YouTube almacena las transmisiones mediante el estándar DASH, disociando video y audio.
+                    Al solicitar una extracción sonora, AHTube descarga únicamente los paquetes de la pista de audio
+                    (Opus o AAC), omitiendo el canal de video para reducir el consumo de ancho de banda y maximizar la velocidad.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-        st.markdown("""
-        ### 4. Entrega y Almacenamiento Seguro
-        El archivo generado se almacena en la carpeta local `downloads/` del servidor y simultáneamente se transfiere como un flujo de datos binario seguro al navegador para tu descarga directa.
-        """)
+        st.markdown(
+            """
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
+                <div style="font-size:1.02rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span class="material-symbols-rounded">folder_zip</span>
+                    4. Persistencia Local e Interfaz
+                </div>
+                <div style="font-size:0.88rem;color:var(--foreground);line-height:1.6;">
+                    Los archivos resultantes se persisten de forma segura en las carpetas locales <code>downloads/</code>
+                    o <code>converted_images/</code>. La interfaz de Streamlit indexa los metadatos y ofrece reproducción
+                    inmediata, además de integración con el Explorador del sistema operativo.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<div style='margin: 1rem 0;'></div>", unsafe_allow_html=True)
     
-    st.markdown("### Descargo de Responsabilidad y Términos de Uso")
-    st.warning("""
-    **Aviso Legal Importante**:
-    - **Uso Estrictamente Personal y Educativo**: AHTube ha sido desarrollado exclusivamente con fines educativos, de investigación técnica y para el respaldo de contenido propio o de dominio público.
-    - **Exención de Responsabilidad del Autor**: El desarrollador/autor de este software **NO se hace responsable** del uso indebido, descargas no autorizadas, infracciones de propiedad intelectual o cualquier actividad ilegal que terceros puedan realizar utilizando esta herramienta.
-    - **Responsabilidad del Usuario**: Es responsabilidad única del usuario final verificar y cumplir con los Términos de Servicio de YouTube y la legislación aplicable en su país antes de descargar cualquier material.
-    """)
+    # Amber Legal Notice
+    render_amber_callout(
+        title="Marco Legal y Aviso de Responsabilidad",
+        items=[
+            "Uso Estrictamente Personal y Educativo: AHTube ha sido desarrollado con propósitos educativos y de investigación sobre flujos multimedia.",
+            "Exención de Responsabilidad: El autor no se responsabiliza por descargas indebidas de contenido protegido con copyright ni por el uso que terceros den a los archivos generados.",
+            "Responsabilidad del Usuario: Es obligación del usuario respetar los Términos de Servicio de los proveedores de contenido y las leyes de propiedad intelectual correspondientes."
+        ],
+        icon="policy"
+    )

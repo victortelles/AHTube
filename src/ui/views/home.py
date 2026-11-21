@@ -4,9 +4,18 @@ from src.config import OUTPUT_DIR
 from src.services.extractor import fetch_video_metadata, extract_media, list_downloaded_files
 from src.services.explorer import open_folder_in_foreground
 from src.ui.components import render_preview_card
+from src.ui.primitives import render_micro_card, get_badge_html
 
 def render_home_view() -> None:
-    """Renders the main Home view: Extractor & Downloads Gallery."""
+    """Renders the main Home view: Audio/Video Studio Extractor & Downloads Gallery."""
+    render_micro_card(
+        title="Estación de Extracción de Medios",
+        subtitle="Conversión y descarga de audio de alta fidelidad y video nativo desde YouTube",
+        badge_text="DAW CORE",
+        badge_variant="audio",
+        icon="graphic_eq"
+    )
+
     url_input = st.text_input(
         "URL del video de YouTube:",
         placeholder="https://www.youtube.com/watch?v=..."
@@ -14,41 +23,41 @@ def render_home_view() -> None:
 
     if url_input:
         if "youtube.com/" in url_input or "youtu.be/" in url_input:
-            with st.spinner("Cargando detalles del video..."):
+            with st.spinner("Sondeando flujos de audio y video..."):
                 meta = fetch_video_metadata(url_input)
             
             if meta:
                 render_preview_card(meta)
 
-            st.markdown("### Opciones de Extracción")
+            st.markdown("### Parámetros de Procesamiento")
             
             mode_choice = st.radio(
-                "Seleccioná el método de extracción:",
-                ["Extraer Audio", "Extraer Video"],
+                "Seleccioná el modo de salida:",
+                ["Pista de Audio (Separada)", "Video Completo"],
                 horizontal=True
             )
 
             col_opt1, col_opt2 = st.columns(2)
 
-            if mode_choice == "Extraer Audio":
+            if mode_choice == "Pista de Audio (Separada)":
                 mode = "audio"
                 with col_opt1:
                     audio_format = st.selectbox(
                         "Formato de Audio:",
                         ["mp3", "wav", "m4a"],
-                        format_func=lambda x: f".{x.upper()}"
+                        format_func=lambda x: f".{x.upper()} (Audio)"
                     )
                 with col_opt2:
                     if audio_format == "mp3":
                         audio_quality = st.selectbox(
-                            "Calidad de Bitrate:",
+                            "Calidad de Bitrate (CBR):",
                             ["320", "192", "128"],
                             index=1,
-                            format_func=lambda x: f"{x} kbps ({'Alta' if x=='320' else 'Estándar' if x=='192' else 'Ligera'})"
+                            format_func=lambda x: f"{x} kbps ({'Máxima Fidelidad' if x=='320' else 'Estándar Studio' if x=='192' else 'Compacto'})"
                         )
                     else:
                         audio_quality = "192"
-                        st.info(f"Formato {audio_format.upper()} seleccionado.")
+                        st.info(f"Formato {audio_format.upper()} sin pérdida o nativo seleccionado.")
                 video_res = "best"
             else:
                 mode = "video"
@@ -58,22 +67,26 @@ def render_home_view() -> None:
                     video_res = st.selectbox(
                         "Resolución máxima de video:",
                         ["best", "1080", "720", "480"],
-                        format_func=lambda x: "Máxima Calidad (Original)" if x == "best" else f"{x}p"
+                        format_func=lambda x: "Máxima Calidad (Original)" if x == "best" else f"{x}p HD"
                     )
                 with col_opt2:
-                    st.info("Formato de salida: MP4")
+                    st.info("Contenedor de salida: MP4 (H.264 / AAC)")
 
-            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("<div style='margin: 0.75rem 0;'></div>", unsafe_allow_html=True)
 
-            if st.button("Iniciar Extracción"):
+            if st.button("Iniciar Extracción", type="primary"):
                 progress_bar = st.progress(0)
                 status_text = st.empty()
 
                 def update_progress(percent, speed, eta):
                     progress_bar.progress(min(max(percent, 0.0), 1.0))
-                    status_text.text(f"Descargando... {int(percent * 100)}% | Velocidad: {speed} | ETA: {eta}")
+                    status_text.markdown(
+                        f"<div class='tabular-nums' style='color:var(--muted-foreground);font-size:0.85rem;'>"
+                        f"Descargando flujos... <strong>{int(percent * 100)}%</strong> | Velocidad: {speed} | ETA: {eta}</div>",
+                        unsafe_allow_html=True
+                    )
 
-                status_text.text("Iniciando conexión con YouTube...")
+                status_text.text("Conectando con el servidor de YouTube...")
                 success, result_path = extract_media(
                     url=url_input,
                     output_dir=OUTPUT_DIR,
@@ -86,11 +99,11 @@ def render_home_view() -> None:
 
                 if success and os.path.exists(result_path):
                     progress_bar.progress(100)
-                    status_text.text("¡Completado exitosamente!")
+                    status_text.text("¡Procesamiento finalizado!")
                     st.balloons()
-                    st.success(f"Extracción finalizada. Guardado localmente en: `{result_path}`")
+                    st.success(f"Archivo guardado exitosamente en: `{result_path}`")
                 else:
-                    st.error(f"Error durante la descarga: {result_path}")
+                    st.error(f"Error durante el procesamiento: {result_path}")
         else:
             st.warning("Por favor ingresá un enlace válido de YouTube.")
     else:
@@ -107,29 +120,38 @@ def render_home_view() -> None:
     col_hdr_text, col_hdr_btn = st.columns([3, 1])
     
     with col_hdr_text:
-        st.markdown("### Carpeta de Descargas (`downloads/`)")
-        st.markdown(f'<div class="file-counter">Total de archivos: <strong>{file_count}</strong></div>', unsafe_allow_html=True)
+        st.markdown("### Biblioteca Local de Descargas")
+        st.markdown(
+            f'<div class="file-counter">Archivos en almacén: <strong style="color:var(--primary);">{file_count}</strong></div>',
+            unsafe_allow_html=True
+        )
     
     with col_hdr_btn:
-        if st.button("Abrir Carpeta", key="open_downloads_folder_btn", help="Abrir ubicación en primer plano"):
+        if st.button("Abrir Carpeta", key="open_downloads_folder_btn", help="Abrir ubicación en el Explorador de archivos"):
             open_folder_in_foreground(OUTPUT_DIR)
-            st.toast("Abriendo carpeta en primer plano...")
+            st.toast("Abriendo carpeta downloads/ en primer plano...")
 
     if not downloaded_files:
-        st.caption("No hay archivos descargados en la carpeta actualmente.")
+        st.caption("No hay archivos en la biblioteca actualmente.")
     else:
         for idx, item in enumerate(downloaded_files):
-            badge_class = "badge-audio" if item['type'] == "audio" else "badge-video"
-            badge_label = f"AUDIO ({item['ext'].upper()[1:]})" if item['type'] == "audio" else f"VIDEO ({item['ext'].upper()[1:]})"
+            badge_variant = "audio" if item['type'] == "audio" else "video"
+            badge_label = f"{item['type'].upper()} · {item['ext'].upper()[1:]}"
+            badge_html = get_badge_html(badge_label, variant=badge_variant)
             
             with st.container():
-                st.markdown(f'<span class="{badge_class}">{badge_label}</span>', unsafe_allow_html=True)
-                st.markdown(f'<div class="file-title">{item["name"]}</div>', unsafe_allow_html=True)
-                st.markdown(f'<div class="file-meta">Tamaño: {item["size_mb"]} MB</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f"""
+                    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin:0.75rem 0;">
+                        <div style="margin-bottom:0.4rem;">{badge_html}</div>
+                        <div class="file-title">{item["name"]}</div>
+                        <div class="file-meta">Tamaño: {item["size_mb"]} MB</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
                 
                 if item['type'] == "audio":
                     st.audio(item['path'], format=f"audio/{item['ext'][1:]}")
                 else:
                     st.video(item['path'], format=f"video/{item['ext'][1:]}")
-                
-                st.markdown("<hr style='border: 0; border-top: 1px solid #1E293B; margin: 12px 0 16px 0;'>", unsafe_allow_html=True)

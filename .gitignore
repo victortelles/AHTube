@@ -26,7 +26,6 @@ venv/
 ENV/
 env/
 
-tests/*
 
 # Downloads directory content (keep directory structure with .gitkeep)
 downloads/*
