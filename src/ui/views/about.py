@@ -14,7 +14,7 @@ def render_about_view() -> None:
     col_f1, col_f2 = st.columns(2)
     
     with col_f1:
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
                 <div style="font-size:1.02rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
@@ -27,11 +27,10 @@ def render_about_view() -> None:
                     Esto reporta de inmediato el título, miniatura de alta resolución, duración y formatos disponibles.
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
         
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
                 <div style="font-size:1.02rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
@@ -44,12 +43,11 @@ def render_about_view() -> None:
                     asegurando rango dinámico y preservación acústica para monitoreo o producción en DAW.
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
 
     with col_f2:
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
                 <div style="font-size:1.02rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
@@ -62,11 +60,10 @@ def render_about_view() -> None:
                     (Opus o AAC), omitiendo el canal de video para reducir el consumo de ancho de banda y maximizar la velocidad.
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
         
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;margin-bottom:1rem;">
                 <div style="font-size:1.02rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;">
@@ -79,11 +76,10 @@ def render_about_view() -> None:
                     inmediata, además de integración con el Explorador del sistema operativo.
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
         
-    st.markdown("<div style='margin: 1rem 0;'></div>", unsafe_allow_html=True)
+    st.html("<div style='margin: 1rem 0;'></div>")
     
     # Amber Legal Notice
     render_amber_callout(

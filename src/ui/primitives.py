@@ -12,7 +12,7 @@ def get_badge_html(text: str, variant: str = "default", icon: str = "") -> str:
 
 def render_badge(text: str, variant: str = "default", icon: str = "") -> None:
     """Renders a standalone pill badge in Streamlit."""
-    st.markdown(get_badge_html(text, variant=variant, icon=icon), unsafe_allow_html=True)
+    st.html(get_badge_html(text, variant=variant, icon=icon))
 
 def render_micro_card(
     title: str,
@@ -34,7 +34,7 @@ def render_micro_card(
       {badge_html}
     </div>
     """
-    st.markdown(card_html, unsafe_allow_html=True)
+    st.html(card_html)
 
 def render_step_bar(steps: list[str], active_index: int = 0) -> None:
     """
@@ -63,7 +63,7 @@ def render_step_bar(steps: list[str], active_index: int = 0) -> None:
         """)
     
     bar_html = f'<div class="dad-step-bar">{"".join(items_html)}</div>'
-    st.markdown(bar_html, unsafe_allow_html=True)
+    st.html(bar_html)
 
 def render_amber_callout(title: str, items: list[str], icon: str = "center_focus_strong") -> None:
     """Renders a high-visibility amber callout banner (.dad-callout)."""
@@ -87,4 +87,4 @@ def render_amber_callout(title: str, items: list[str], icon: str = "center_focus
       {"".join(item_rows)}
     </div>
     """
-    st.markdown(callout_html, unsafe_allow_html=True)
+    st.html(callout_html)

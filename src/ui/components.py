@@ -19,9 +19,9 @@ def render_header() -> None:
         </div>
         <div style="color:var(--muted-foreground);font-size:0.92rem;font-weight:400;">{APP_SUBTITLE}</div>
         """
-        st.markdown(title_html, unsafe_allow_html=True)
+        st.html(title_html)
 
-    st.markdown("<div style='margin-bottom: 1.25rem;'></div>", unsafe_allow_html=True)
+    st.html("<div style='margin-bottom: 1.25rem;'></div>")
 
 def render_sidebar() -> str:
     """Renders sidebar navigation using streamlit-option-menu with Sky/Slate Studio theme."""
@@ -29,13 +29,9 @@ def render_sidebar() -> str:
         if os.path.exists(LOGO_ALPHA_PATH):
             st.image(LOGO_ALPHA_PATH, width="stretch")
         
-        st.markdown(
-            f'<div style="font-size:1.4rem;font-weight:700;color:var(--foreground);margin-top:0.5rem;">{APP_NAME}</div>',
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            '<div style="font-size:0.8rem;color:var(--muted-foreground);margin-bottom:0.75rem;">Digital Audio & Video Station</div>',
-            unsafe_allow_html=True
+        st.html(
+            f'<div style="font-size:1.4rem;font-weight:700;color:var(--foreground);margin-top:0.5rem;">{APP_NAME}</div>'
+            '<div style="font-size:0.8rem;color:var(--muted-foreground);margin-bottom:0.75rem;">Digital Audio & Video Station</div>'
         )
         st.markdown("---")
         
@@ -73,7 +69,7 @@ def render_sidebar() -> str:
         st.markdown("---")
         
         # System status badge in sidebar footer
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--secondary);border:1px solid var(--border);border-radius:var(--radius);padding:0.65rem 0.85rem;margin-bottom:0.75rem;">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.25rem;">
@@ -84,8 +80,7 @@ def render_sidebar() -> str:
                     FFmpeg & yt-dlp OK
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
         st.caption("AHTube Studio © 2026 | Procesamiento Local")
         
@@ -130,4 +125,4 @@ def render_preview_card(meta: dict) -> None:
       </div>
     </div>
     """
-    st.markdown(card_html, unsafe_allow_html=True)
+    st.html(card_html)

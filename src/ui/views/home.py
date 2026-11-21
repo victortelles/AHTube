@@ -72,7 +72,7 @@ def render_home_view() -> None:
                 with col_opt2:
                     st.info("Contenedor de salida: MP4 (H.264 / AAC)")
 
-            st.markdown("<div style='margin: 0.75rem 0;'></div>", unsafe_allow_html=True)
+            st.html("<div style='margin: 0.75rem 0;'></div>")
 
             if st.button("Iniciar Extracción", type="primary"):
                 progress_bar = st.progress(0)
@@ -80,10 +80,9 @@ def render_home_view() -> None:
 
                 def update_progress(percent, speed, eta):
                     progress_bar.progress(min(max(percent, 0.0), 1.0))
-                    status_text.markdown(
+                    status_text.html(
                         f"<div class='tabular-nums' style='color:var(--muted-foreground);font-size:0.85rem;'>"
-                        f"Descargando flujos... <strong>{int(percent * 100)}%</strong> | Velocidad: {speed} | ETA: {eta}</div>",
-                        unsafe_allow_html=True
+                        f"Descargando flujos... <strong>{int(percent * 100)}%</strong> | Velocidad: {speed} | ETA: {eta}</div>"
                     )
 
                 status_text.text("Conectando con el servidor de YouTube...")
@@ -121,9 +120,8 @@ def render_home_view() -> None:
     
     with col_hdr_text:
         st.markdown("### Biblioteca Local de Descargas")
-        st.markdown(
-            f'<div class="file-counter">Archivos en almacén: <strong style="color:var(--primary);">{file_count}</strong></div>',
-            unsafe_allow_html=True
+        st.html(
+            f'<div class="file-counter">Archivos en almacén: <strong style="color:var(--primary);">{file_count}</strong></div>'
         )
     
     with col_hdr_btn:
@@ -140,15 +138,14 @@ def render_home_view() -> None:
             badge_html = get_badge_html(badge_label, variant=badge_variant)
             
             with st.container():
-                st.markdown(
+                st.html(
                     f"""
                     <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin:0.75rem 0;">
                         <div style="margin-bottom:0.4rem;">{badge_html}</div>
                         <div class="file-title">{item["name"]}</div>
                         <div class="file-meta">Tamaño: {item["size_mb"]} MB</div>
                     </div>
-                    """,
-                    unsafe_allow_html=True
+                    """
                 )
                 
                 if item['type'] == "audio":

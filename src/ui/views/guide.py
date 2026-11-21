@@ -30,7 +30,7 @@ def render_guide_view() -> None:
     if os.path.exists(STEP1_IMG_PATH):
         st.image(STEP1_IMG_PATH, width="stretch")
         
-    st.markdown("<div style='margin: 1.5rem 0;'></div>", unsafe_allow_html=True)
+    st.html("<div style='margin: 1.5rem 0;'></div>")
     
     # Step 2
     st.markdown("### Paso 2: Confirmar detalles y seleccionar el método")
@@ -42,7 +42,7 @@ def render_guide_view() -> None:
     if os.path.exists(STEP2_IMG_PATH):
         st.image(STEP2_IMG_PATH, width="stretch")
 
-    st.markdown("<div style='margin: 1.5rem 0;'></div>", unsafe_allow_html=True)
+    st.html("<div style='margin: 1.5rem 0;'></div>")
 
     # Step 3
     st.markdown("### Paso 3: Extracción y Descarga Local")
@@ -54,7 +54,7 @@ def render_guide_view() -> None:
     if os.path.exists(STEP3_IMG_PATH):
         st.image(STEP3_IMG_PATH, width="stretch")
 
-    st.markdown("<div style='margin: 1.5rem 0;'></div>", unsafe_allow_html=True)
+    st.html("<div style='margin: 1.5rem 0;'></div>")
 
     # Amber Operational Callout
     render_amber_callout(

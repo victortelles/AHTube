@@ -14,7 +14,7 @@ def render_terms_view() -> None:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;height:100%;">
                 <div style="font-size:1.05rem;font-weight:700;color:#10b981;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;">
@@ -28,12 +28,11 @@ def render_terms_view() -> None:
                     <li><strong>Conversión de Imágenes:</strong> Transformación ilimitada por lotes entre formatos modernos (.heic, .webp, .png, .jpg, .ico, .pdf).</li>
                 </ul>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
 
     with col2:
-        st.markdown(
+        st.html(
             """
             <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;height:100%;">
                 <div style="font-size:1.05rem;font-weight:700;color:#ef4444;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;">
@@ -46,11 +45,10 @@ def render_terms_view() -> None:
                     <li><strong>Redistribución Comercial:</strong> Queda prohibido lucrar o comercializar de forma ilegítima material sujeto a derechos de autor descargado mediante este software.</li>
                 </ul>
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
 
-    st.markdown("<div style='margin: 1.5rem 0;'></div>", unsafe_allow_html=True)
+    st.html("<div style='margin: 1.5rem 0;'></div>")
     
     # Legal Disclaimer Card with Amber Styling
     render_amber_callout(

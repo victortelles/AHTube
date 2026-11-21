@@ -17,15 +17,16 @@ from src.services.explorer import open_folder_in_foreground
 from src.ui.primitives import render_micro_card, get_badge_html
 
 def render_image_converter_view() -> None:
-    """Renders the independent Image Converter view with Sky/Slate Studio styling."""
+    """Renders the independent Image Converter view with Sky/Slate Studio theme."""
     render_micro_card(
-        title="Conversor Profesional de Imágenes",
-        subtitle="Conversión local por lotes de formatos HEIC, JFIF, PNG, JPG, WEBP, ICO, BMP, TIFF y PDF",
-        badge_text="IMAGE ENGINE",
+        title="Procesador y Conversor de Imágenes",
+        subtitle="Conversión local de alta fidelidad entre formatos (.heic, .jfif, .png, .jpg, .webp, .ico, .pdf)",
+        badge_text="IMAGE LAB",
         badge_variant="image",
         icon="photo_library"
     )
 
+    # Mode Selector
     input_mode = st.radio(
         "Modo de selección de imágenes:",
         ["Subir Archivos Directamente", "Escanear Carpeta Local"],
@@ -39,7 +40,7 @@ def render_image_converter_view() -> None:
             "Seleccioná una o varias imágenes:",
             type=[ext.replace(".", "") for ext in SUPPORTED_IMAGE_INPUT_EXTS],
             accept_multiple_files=True,
-            help="Podés arrastrar o seleccionar archivos HEIC, JFIF, PNG, JPG, WEBP, ICO, BMP, TIFF, GIF, etc."
+            help="Arrastrá o seleccioná archivos HEIC, JFIF, PNG, JPG, WEBP, ICO, BMP, TIFF, GIF, etc."
         )
 
         if uploaded_files:
@@ -55,7 +56,7 @@ def render_image_converter_view() -> None:
                     "mode": info.get("mode", "-"),
                 })
 
-    else:
+    else:  # Escanear Carpeta Local
         col_path, col_scan = st.columns([4, 1])
         with col_path:
             folder_path = st.text_input(
@@ -65,7 +66,7 @@ def render_image_converter_view() -> None:
         with col_scan:
             st.write("")
             st.write("")
-            st.button("Escanear")
+            st.button("Escanear", type="secondary")
 
         if folder_path:
             if os.path.exists(folder_path) and os.path.isdir(folder_path):
@@ -90,7 +91,7 @@ def render_image_converter_view() -> None:
     # PREVIEW & CONVERSION SETTINGS
     # ----------------------------------------------------
     if items_to_convert:
-        st.markdown("<div style='margin: 1rem 0;'></div>", unsafe_allow_html=True)
+        st.html("<div style='margin: 1rem 0;'></div>")
         st.markdown("### Imágenes en Cola de Procesamiento")
 
         col_m1, col_m2, col_m3 = st.columns(3)
@@ -106,7 +107,7 @@ def render_image_converter_view() -> None:
 
         # Format badges row
         badges_html = " ".join([get_badge_html(fmt, variant="image") for fmt in formats_found])
-        st.markdown(f"<div style='margin: 0.5rem 0;'>{badges_html}</div>", unsafe_allow_html=True)
+        st.html(f"<div style='margin: 0.5rem 0;'>{badges_html}</div>")
 
         with st.expander("Ver lista detallada de archivos detectados", expanded=False):
             preview_data = [
@@ -151,7 +152,7 @@ def render_image_converter_view() -> None:
         out_dir = IMAGE_OUTPUT_DIR
         st.caption(f"Los archivos convertidos se guardarán en: `{out_dir}/`")
 
-        st.markdown("<div style='margin: 0.75rem 0;'></div>", unsafe_allow_html=True)
+        st.html("<div style='margin: 0.75rem 0;'></div>")
 
         if st.button("Iniciar Conversión de Imágenes", type="primary"):
             progress_bar = st.progress(0)
@@ -159,10 +160,9 @@ def render_image_converter_view() -> None:
 
             def update_progress(percent: float, message: str):
                 progress_bar.progress(min(max(percent, 0.0), 1.0))
-                status_text.markdown(
+                status_text.html(
                     f"<div class='tabular-nums' style='color:var(--muted-foreground);font-size:0.85rem;'>"
-                    f"Procesando... <strong>{int(percent * 100)}%</strong> — {message}</div>",
-                    unsafe_allow_html=True
+                    f"Procesando lote... {message}</div>"
                 )
 
             result = batch_convert(
@@ -174,7 +174,7 @@ def render_image_converter_view() -> None:
             )
 
             progress_bar.progress(1.0)
-            status_text.text("¡Conversión completada con éxito!")
+            status_text.text("¡Conversión de lote completada con éxito!")
             st.balloons()
 
             st.success(f"**{result['successful_count']}** de **{result['total']}** imágenes convertidas exitosamente a **.{target_format.lower()}**.")
@@ -203,14 +203,13 @@ def render_image_converter_view() -> None:
     col_hdr_text, col_hdr_btn = st.columns([3, 1])
 
     with col_hdr_text:
-        st.markdown("### Galería de Imágenes Convertidas")
-        st.markdown(
-            f'<div class="file-counter">Imágenes en almacén: <strong style="color:var(--primary);">{file_count}</strong></div>',
-            unsafe_allow_html=True
+        st.markdown("### Biblioteca de Imágenes Convertidas")
+        st.html(
+            f'<div class="file-counter">Imágenes en almacén: <strong style="color:var(--primary);">{file_count}</strong></div>'
         )
 
     with col_hdr_btn:
-        if st.button("Abrir Carpeta", key="open_images_folder_btn", help="Abrir carpeta de imágenes en primer plano"):
+        if st.button("Abrir Carpeta", key="open_images_folder_btn", help="Abrir ubicación en el Explorador de archivos"):
             open_folder_in_foreground(IMAGE_OUTPUT_DIR)
             st.toast("Abriendo carpeta converted_images/ en primer plano...")
 
@@ -222,13 +221,12 @@ def render_image_converter_view() -> None:
             with cols[idx % 4]:
                 badge_html = get_badge_html(item["ext"].upper()[1:], variant="image")
                 with st.container():
-                    st.markdown(
+                    st.html(
                         f"""
                         <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.75rem;">
                             <div style="margin-bottom:0.4rem;">{badge_html}</div>
                         </div>
-                        """,
-                        unsafe_allow_html=True
+                        """
                     )
                     if item["ext"] in (".png", ".jpg", ".jpeg", ".jfif", ".webp", ".bmp", ".ico"):
                         try:
@@ -237,5 +235,7 @@ def render_image_converter_view() -> None:
                             st.write(f"{item['name']}")
                     else:
                         st.write(f"{item['name']}")
-                    st.markdown(f'<div class="file-title">{item["name"]}</div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="file-meta">{item["size_kb"]} KB</div>', unsafe_allow_html=True)
+                    st.html(
+                        f'<div class="file-title">{item["name"]}</div>'
+                        f'<div class="file-meta">{item["size_kb"]} KB</div>'
+                    )
