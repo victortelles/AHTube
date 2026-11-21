@@ -26,10 +26,13 @@ venv/
 ENV/
 env/
 
+
 # Downloads directory content (keep directory structure with .gitkeep)
 downloads/*
 !downloads/.gitkeep
 
+converted_images/*
+!*/converted_images/.gitkeep
 # Streamlit
 .streamlit/secrets.toml
 
@@ -40,3 +43,7 @@ downloads/*
 *.swo
 .DS_Store
 Thumbs.db
+
+# Gentle AI / ATL
+.atl/
+

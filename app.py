@@ -2,6 +2,7 @@ import streamlit as st
 from src.config import APP_NAME, CUSTOM_CSS
 from src.ui.components import render_header, render_sidebar
 from src.ui.views.home import render_home_view
+from src.ui.views.image_converter import render_image_converter_view
 from src.ui.views.guide import render_guide_view
 from src.ui.views.terms import render_terms_view
 from src.ui.views.about import render_about_view
@@ -23,6 +24,8 @@ def main():
     
     if nav_option == "Inicio":
         render_home_view()
+    elif nav_option == "Conversor de Imágenes":
+        render_image_converter_view()
     elif nav_option == "Cómo usarlo":
         render_guide_view()
     elif nav_option == "Normas y Términos":

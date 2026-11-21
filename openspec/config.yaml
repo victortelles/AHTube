@@ -1,0 +1,31 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Python 3.12, Streamlit 1.61, yt-dlp, static-ffmpeg / imageio-ffmpeg, Pillow 12.3
+  Architecture: Modular Python application with dual entry points (Streamlit Web UI in app.py, CLI in main.py), services in src/services/
+  Testing: Built-in Python unittest runner
+  Style: PEP 8, modular service design, separated UI components and views
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    tdd: true
+    test_command: ".\\.venv\\Scripts\\python.exe -m unittest discover"
+  verify:
+    test_command: ".\\.venv\\Scripts\\python.exe -m unittest discover"
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
